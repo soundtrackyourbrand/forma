@@ -1,5 +1,7 @@
 # Forma
 
+[![Build Status](https://travis-ci.org/soundtrackyourbrand/forma.svg?branch=master)](https://travis-ci.org/soundtrackyourbrand/forma)
+
 Applies typespecs to JSON-like data.
 
 This module can parse JSON-like data (such as maps with key strings)
