@@ -73,15 +73,15 @@ defmodule Forma do
   """
   use GenServer
 
-  @type input :: map(optional(string) => optional(any))
-  @type module :: atom
+  @type input :: %{optional(string) => any} | [any] | String.t | number
   @type typeref :: {atom, atom}
-  @type callback :: (input, []) -> any
-  @type parsers :: map(optional(typeref) => optional(callback))
+  @type callback :: (input, [] -> any)
+  @type parsers :: %{optional(typeref) => callback}
 
-  @spec parse(input, module, parsers) :: any
+  @spec parse(input, atom, parsers) :: any
   def parse(input, module, parsers \\ %{})
 
+  @spec parse(input, typeref, parsers) :: any
   def parse(input, {module, type}, parsers) do
     typ = type(module, type)
 
@@ -96,7 +96,6 @@ defmodule Forma do
     parse(input, {into, :t}, parsers)
   end
 
-  @spec type(pid, module, type :: atom) :: 
   def type(pid \\ __MODULE__, module, type) do
     GenServer.call(pid, {:type, module, type})
   end
