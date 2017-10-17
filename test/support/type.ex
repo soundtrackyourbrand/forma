@@ -12,7 +12,7 @@ end
 defmodule Forma.Type do
   defstruct [:string, :list, :map, :strict, :float, :int, :neg_int,
              :non_neg_int, :pos_int, :range, :atom, :union, :bool,
-             :recursive, :date, :set]
+             :recursive, :date, :set, :datetime]
 
   @type t :: %__MODULE__{
     string: String.t,
@@ -36,6 +36,7 @@ defmodule Forma.Type do
     bool: boolean,
     recursive: t,
     date: Forma.Date.t,
+    datetime: DateTime.t,
     set: MapSet.t(integer)
   }
 

@@ -29,6 +29,10 @@ defmodule FormaTest do
     assert res.strict == %{foo: 1}
   end
 
+  test "it disregards nil keys in strict maps" do
+    {:ok, res} = Forma.parse(%{"strict" => %{"foo" => 1, "bar" => "baz"}}, Forma.Type)
+    assert res.strict == %{foo: 1}
+  end
 
   test "it parses floats" do
     {:ok, res} = Forma.parse(%{"float" => 1.1}, Forma.Type)
@@ -83,6 +87,21 @@ defmodule FormaTest do
     {:ok, res} = Forma.parse(%{"date" => "2015-01-23 23:50:07"}, Forma.Type)
 
     assert res.date == ~N[2015-01-23 23:50:07]
+  end
+
+  test "it parses builtin types" do
+    dt = fn input ->
+      case DateTime.from_iso8601(input) do
+        {:ok, t, _} -> t
+        {:error, err} -> raise err
+      end
+    end
+
+    {:ok, res} = Forma.parse(%{"datetime" => "2015-01-23T23:50:07Z"}, Forma.Type,
+      %{{DateTime, :t} => dt})
+
+    expected = res.datetime
+    assert {:ok, ^expected, _} = DateTime.from_iso8601("2015-01-23T23:50:07Z")
   end
 
   test "it parses sets" do
