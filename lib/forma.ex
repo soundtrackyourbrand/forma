@@ -73,7 +73,7 @@ defmodule Forma do
   """
   use GenServer
 
-  @type input :: %{optional(string) => any} | [any] | String.t | number
+  @type input :: %{optional(String.t) => any} | [any] | String.t | number
   @type typeref :: {atom, atom}
   @type callback :: (input, [] -> any)
   @type parsers :: %{optional(typeref) => callback}
