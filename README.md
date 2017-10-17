@@ -67,13 +67,14 @@ defmodule LogRow do
   }
 end
 
-Forma.parse(%{"log" => "An error occurred", "timestamp" => "2015-01-23 23:50:07"},
-  %{{NaiveDateTime, :t} => fn input ->
-    case NaiveDateTime.from_iso8601(input) do
-      {:ok, datetime} -> datetime
-      {:error, err} -> raise err
-    end
-  end})
+date = fn input ->
+  case NaiveDateTime.from_iso8601(input) do
+    {:ok, datetime} -> datetime
+    {:error, err} -> raise err
+  end
+end
+parsers = %{{NaiveDateTime, :t} => date}
+Forma.parse(%{"log" => "An error occurred", "timestamp" => "2015-01-23 23:50:07"}, LogRow, parsers)
 ```
 
 The number of arguments to the parser functions depends on if the type is parameterized
