@@ -24,6 +24,8 @@ defmodule Forma.Mixfile do
   defp elixirc_paths(_),     do: ["lib"]
 
   defp deps do
-    []
+    [
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+    ]
   end
 end
