@@ -9,16 +9,22 @@ defmodule Forma.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env),
       start_permanent: Mix.env == :prod,
       deps: deps(),
+      description: description(),
       package: package(),
     ]
+  end
+
+  defp description() do
+    "Provides structured parsing of JSON-like data based on modules' Typespecs."
   end
 
   defp package() do
     [
       name: "forma",
       organization: "Soundtrack Your Brand",
+      description: "",
       licenses: ["MIT"],
-      files: ["lib", "README.md", "LICENSE", "mix.exs", "priv"],
+      files: ["lib", "README.md", "LICENSE", "mix.exs"],
       maintainers: ["Fredrik Wärnsberg"],
       links: %{"GitHub" => "https://github.com/soundtrackyourbrand/forma"}
     ]
