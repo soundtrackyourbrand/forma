@@ -8,7 +8,19 @@ defmodule Forma.Mixfile do
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      deps: deps(),
+      package: package(),
+    ]
+  end
+
+  defp package() do
+    [
+      name: "forma",
+      organization: "Soundtrack Your Brand",
+      licenses: ["MIT"],
+      files: ["lib", "README.md", "LICENSE", "mix.exs", "priv"],
+      maintainers: ["Fredrik Wärnsberg"],
+      links: %{"GitHub" => "https://github.com/soundtrackyourbrand/forma"}
     ]
   end
 
