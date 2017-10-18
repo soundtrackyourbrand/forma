@@ -6,7 +6,6 @@ defmodule Forma.Types do
       end
 
   def start_link(args) do
-    IO.puts("start link #{inspect args}")
     GenServer.start_link(__MODULE__, %{}, args)
   end
 
