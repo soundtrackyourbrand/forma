@@ -21,17 +21,17 @@ defmodule Forma.Parser do
   end
 
   def parse!(input, parsers, {:union, possible}) do
-    ret = Enum.find_value(possible, fn candidate ->
+    ret = Enum.reduce_while(possible, :not_found, fn (candidate, acc) ->
       try do
-        parse!(input, parsers, candidate)
+        {:halt, {:ok, parse!(input, parsers, candidate)}}
       rescue
-        _ -> nil
+        _ -> {:cont, {:error, :no_value}}
       end
     end)
 
     case ret do
-      nil -> raise "#{inspect input} doesn't match any of: #{inspect possible}"
-      x -> x
+      {:ok, v} -> v
+      {:error, :no_value} -> raise "#{inspect input} doesn't match any of: #{inspect possible}"
     end
   end
 
@@ -90,6 +90,14 @@ defmodule Forma.Parser do
       x when is_binary(x) -> String.to_atom(x)
       x when is_atom(x) -> x
       x -> raise "can't convert #{inspect x} to an atom"
+    end
+  end
+
+  def parse!(input, _parsers, {:atom, nil}) do
+    case input do
+      nil -> nil
+      "" -> nil
+      x -> raise "can't convert #{inspect x} to nil"
     end
   end
 

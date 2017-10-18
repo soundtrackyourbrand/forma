@@ -109,4 +109,14 @@ defmodule FormaTest do
 
     assert res.set == MapSet.new([1, 2, 3])
   end
+
+  test "it parses \"\" as nil" do
+    {:ok, res} = Forma.parse("", {Forma.Type, :union})
+    assert res == nil
+  end
+
+  test "it parses nil as nil" do
+    {:ok, res} = Forma.parse(nil, {Forma.Type, :union})
+    assert res == nil
+  end
 end

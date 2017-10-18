@@ -40,5 +40,5 @@ defmodule Forma.Type do
     set: MapSet.t(integer)
   }
 
-  @type union :: :foo | :bar
+  @type union :: :foo | :bar | nil
 end
