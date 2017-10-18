@@ -21,7 +21,7 @@ defmodule Forma.Parser do
   end
 
   def parse!(input, parsers, {:union, possible}) do
-    ret = Enum.reduce_while(possible, :not_found, fn (candidate, acc) ->
+    ret = Enum.reduce_while(possible, :not_found, fn (candidate, _) ->
       try do
         {:halt, {:ok, parse!(input, parsers, candidate)}}
       rescue
