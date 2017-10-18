@@ -4,6 +4,7 @@ defmodule Forma.Mixfile do
   def project do
     [
       app: :forma,
+      name: "forma",
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
@@ -11,6 +12,7 @@ defmodule Forma.Mixfile do
       deps: deps(),
       description: description(),
       package: package(),
+      source_url: "https://github.com/soundtrackyourbrand/forma",
     ]
   end
 
@@ -21,8 +23,6 @@ defmodule Forma.Mixfile do
   defp package() do
     [
       name: "forma",
-      organization: "Soundtrack Your Brand",
-      description: "",
       licenses: ["MIT"],
       files: ["lib", "README.md", "LICENSE", "mix.exs"],
       maintainers: ["Fredrik Wärnsberg"],
