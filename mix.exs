@@ -25,7 +25,7 @@ defmodule Forma.Mixfile do
       name: "forma",
       licenses: ["MIT"],
       files: ["lib", "README.md", "LICENSE", "mix.exs"],
-      maintainers: ["Fredrik Wärnsberg"],
+      maintainers: ["Fredrik Wärnsberg", "Fredrik Enestad"],
       links: %{"GitHub" => "https://github.com/soundtrackyourbrand/forma"}
     ]
   end
