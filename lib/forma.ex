@@ -71,7 +71,18 @@ defmodule Forma do
   The number of arguments to the parser functions depends on if the type is parameterized
   or not (`MapSet.t` vs `MapSet.t(integer)`).
   """
-  use GenServer
+  use Application
+  alias Forma.Types
+
+  def start(_type, _args) do
+    import Supervisor.Spec, warn: false
+
+    children = [
+      {Forma.Types, name: Forma.Types},
+    ]
+
+    Supervisor.start_link(children, strategy: :one_for_one)
+  end
 
   @type input :: %{optional(String.t) => any} | [any] | String.t | number
   @type typeref :: {atom, atom}
@@ -83,7 +94,7 @@ defmodule Forma do
 
   @spec parse(input, typeref, parsers) :: any
   def parse(input, {module, type}, parsers) do
-    typ = type(module, type)
+    typ = Types.for(module, type)
 
     try do
       {:ok, Forma.Parser.parse!(input, parsers, typ)}
@@ -94,25 +105,5 @@ defmodule Forma do
 
   def parse(input, into, parsers) do
     parse(input, {into, :t}, parsers)
-  end
-
-  def type(pid \\ __MODULE__, module, type) do
-    GenServer.call(pid, {:type, module, type})
-  end
-
-  def start_link() do
-    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
-  end
-
-  def init(initial) do
-    {:ok, initial}
-  end
-
-  def handle_call({:type, module, t}, _from, state) do
-    case Map.get(state, module) do
-      nil -> types = Forma.Typespecs.compile(module)
-      {:reply, Map.get(types, {module, t}), Map.merge(state, types)}
-      type -> {:reply, type, state}
-    end
   end
 end

@@ -3,7 +3,6 @@ defmodule FormaTest do
   doctest Forma
 
   setup do
-    Forma.start_link()
     {:module, _} = Code.ensure_compiled(Forma.Date)
     {:module, _} = Code.ensure_compiled(Forma.Type)
     :ok

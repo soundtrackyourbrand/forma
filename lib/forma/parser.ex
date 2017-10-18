@@ -122,7 +122,7 @@ defmodule Forma.Parser do
       f = Map.get(parsers, {module, type}) -> apply(f, [input | params])
       function_exported?(module, :__forma__, 2) -> apply(module, :__forma__, [type, input]  ++ params)
       true ->
-        case Forma.type(module, type) do
+        case Forma.Types.for(module, type) do
           :opaque -> raise "{#{module}, #{type}} is opaque and no parser or parser behaviour is defined"
           typ -> parse!(input, parsers, typ)
         end
