@@ -1,5 +1,5 @@
 **forma**  
-<sub><sup>_verb. /fạ̊r:ma/_</sup></sub>  
+_[swe] verb. /fạ̊r:ma/_  
 to adjust; adapt
 
 [![Build Status](https://travis-ci.org/soundtrackyourbrand/forma.svg?branch=master)](https://travis-ci.org/soundtrackyourbrand/forma)
