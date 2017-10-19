@@ -89,10 +89,9 @@ defmodule Forma do
   @type callback :: (input, [] -> any)
   @type parsers :: %{optional(typeref) => callback}
 
-  @spec parse(input, atom, parsers) :: any
   def parse(input, module, parsers \\ %{})
 
-  @spec parse(input, typeref, parsers) :: any
+  @spec parse(input, typeref, parsers) :: {:ok, any} | {:error, reason :: any}
   def parse(input, {module, type}, parsers) do
     typ = Types.for(module, type)
 
@@ -103,6 +102,7 @@ defmodule Forma do
     end
   end
 
+  @spec parse(input, atom, parsers) :: {:ok, any} | {:error, reason :: any}
   def parse(input, into, parsers) do
     parse(input, {into, :t}, parsers)
   end
