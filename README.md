@@ -1,10 +1,10 @@
-# forma
-
 **forma**  
 <sub><sup>_verb. /ʃeɪp/_</sup></sub>  
 to adjust; adapt
 
 [![Build Status](https://travis-ci.org/soundtrackyourbrand/forma.svg?branch=master)](https://travis-ci.org/soundtrackyourbrand/forma)
+
+# forma
 
 Applies typespecs to JSON-like data.
 
