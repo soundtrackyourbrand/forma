@@ -1,6 +1,7 @@
 # forma
-_verb. /ʃeɪp/_
 
+**forma** . 
+_verb. /ʃeɪp/_ . 
 to adjust; adapt
 
 [![Build Status](https://travis-ci.org/soundtrackyourbrand/forma.svg?branch=master)](https://travis-ci.org/soundtrackyourbrand/forma)
