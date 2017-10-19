@@ -34,7 +34,7 @@ defmodule User do
 end
 
 Forma.parse(%{"id" => "1", "name" => "Fredrik", "age" => 30, "gender" => "male"}, User)
-# => %User{id: "1", name: "Fredrik", age: 30, gender: :male}
+# => {:ok, %User{id: "1", name: "Fredrik", age: 30, gender: :male}}
 ```
 
 Forma tries to figure out how to translate its input to a typespec. However, not all
