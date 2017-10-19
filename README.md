@@ -93,7 +93,7 @@ by adding `forma` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:forma, "~> 0.1.0"}
+    {:forma, "~> 0.4.0"}
   ]
 end
 ```
