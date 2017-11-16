@@ -3,7 +3,10 @@ defmodule Forma.Types do
 
   def for(module, type) do
     case :ets.lookup(__MODULE__, {module, type}) do
-      [] -> GenServer.call(__MODULE__, {:type, module, type})
+      [] ->
+        spec = compile(module, type)
+        :ok = GenServer.call(__MODULE__, {:store, {module, type}, spec})
+        spec
       [{{_, _}, spec} | _] -> spec
     end
   end
@@ -17,10 +20,13 @@ defmodule Forma.Types do
     {:ok, name}
   end
 
-  def handle_call({:type, module, t}, _from, name) do
+  def compile(module, type) do
     types = Forma.Typespecs.compile(module)
-    spec = Map.get(types, {module, t})
+    spec = Map.get(types, {module, type})
+  end
+
+  def handle_call({:store, {module, t}, spec}, _from, name) do
     true = :ets.insert(name, {{module, t}, spec})
-    {:reply, spec, name}
+    {:reply, :ok, name}
   end
 end
