@@ -22,7 +22,7 @@ defmodule Forma.Types do
 
   def compile(module, type) do
     types = Forma.Typespecs.compile(module)
-    spec = Map.get(types, {module, type})
+    Map.get(types, {module, type})
   end
 
   def handle_call({:store, {module, t}, spec}, _from, name) do
