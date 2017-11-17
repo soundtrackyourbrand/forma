@@ -2,12 +2,9 @@ defmodule Forma.Types do
   use GenServer
 
   def for(module, type) do
-    case :ets.lookup(__MODULE__, {module, type}) do
-      [] ->
-        spec = compile(module, type)
-        :ok = GenServer.call(__MODULE__, {:store, {module, type}, spec})
-        spec
-      [{{_, _}, spec} | _] -> spec
+    case get({module, type}) do
+      nil -> GenServer.call(__MODULE__, {:compile, {module, type}})
+      spec -> spec
     end
   end
 
@@ -20,13 +17,26 @@ defmodule Forma.Types do
     {:ok, name}
   end
 
-  def compile(module, type) do
+  def handle_call({:compile, {_module, _t} = k}, _from, name) do
+    spec = case get(k) do
+      nil ->
+        spec = compile(k)
+        true = :ets.insert(name, {k, spec})
+        spec
+      spec -> spec
+    end
+    {:reply, spec, name}
+  end
+
+  defp compile({module, type}) do
     types = Forma.Typespecs.compile(module)
     Map.get(types, {module, type})
   end
 
-  def handle_call({:store, {module, t}, spec}, _from, name) do
-    true = :ets.insert(name, {{module, t}, spec})
-    {:reply, :ok, name}
+  defp get({module, type}) do
+    case :ets.lookup(__MODULE__, {module, type}) do
+      [] -> nil
+      [{{_, _}, spec} | _] -> spec
+    end
   end
 end
