@@ -31,10 +31,16 @@ defmodule Forma.Typespecs do
     {:assoc_map, {rewrite(key, module), rewrite(value, module)}}
   end
 
-  def rewrite({:type, _, :map, [{:type, _, :map_field_exact, _} | _] = tree}, module) do
-    case struct_name(tree) do
-      nil -> {:exact_map, map(tree, module)}
-      name -> {:struct, name, parse_struct(tree, module)}
+  def rewrite({:type, _, :map, [{:type, _, :map_field_exact, type} | _] = tree}, module) do
+    case type do
+      [{:atom, _, :__struct__}, {:atom, _, struct_name}] ->
+        {:struct, struct_name, parse_struct(tree, module)}
+
+      [{:atom, _, _}, _] ->
+        {:exact_map, map(tree, module)}
+
+      [key, value] ->
+        {:exact_map, {rewrite(key, module), rewrite(value, module)}}
     end
   end
 

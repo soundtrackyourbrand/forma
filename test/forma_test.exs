@@ -8,6 +8,11 @@ defmodule FormaTest do
     :ok
   end
 
+  test "it parses map with required key" do
+    {:ok, res} = Forma.parse(%{"required" => %{"key" => "value"}}, Forma.Type)
+    assert res.required["key"] == "value"
+  end
+
   test "it parses strings" do
     {:ok, res} = Forma.parse(%{"string" => "a string"}, Forma.Type)
     assert res.string == "a string"
