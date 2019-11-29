@@ -58,9 +58,6 @@ defmodule Forma.Typespecs do
     []
   end
 
-  def struct_name([{:type, _, :map_field_exact, [{:atom, _, :__struct__}, {:atom, _, struct}]} | _]), do: struct
-  def struct_name(_), do: nil
-
   def parse_struct([{:type, _, :map_field_exact, [{:atom, _, :__struct__}, {:atom, _, _}]} | rest], module), do: map(rest, module)
 
   def map(tree, module) do
