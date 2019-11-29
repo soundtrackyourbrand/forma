@@ -148,6 +148,12 @@ defmodule Forma.Parser do
     end)
   end
 
+  defp map_exact_fields!(input, parsers, acc, {key, value}) do
+    Enum.reduce(input, acc, fn {k, v}, acc ->
+      Map.put(acc, parse!(k, parsers, key), parse!(v, parsers, value))
+    end)
+  end
+
   defp map_exact_fields!(input, parsers, acc, fields) do
     Enum.reduce(input, acc, fn {key, value}, acc ->
       case Map.get(fields, key) do
