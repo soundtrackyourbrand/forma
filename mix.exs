@@ -5,14 +5,14 @@ defmodule Forma.Mixfile do
     [
       app: :forma,
       name: "forma",
-      version: "0.7.0",
+      version: "0.7.1",
       elixir: "~> 1.5",
-      elixirc_paths: elixirc_paths(Mix.env),
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
       package: package(),
-      source_url: "https://github.com/soundtrackyourbrand/forma",
+      source_url: "https://github.com/soundtrackyourbrand/forma"
     ]
   end
 
@@ -39,12 +39,12 @@ defmodule Forma.Mixfile do
 
   defp elixirc_paths(:ci), do: ["lib", "test/support"]
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
     [
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
-      {:ex_doc, "~> 0.16", only: :dev},
+      {:ex_doc, "~> 0.16", only: :dev}
     ]
   end
 end
